@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h2 class="title">Our Products</h2>
+
+<div class="product-container">
+
+    {% for product in products %}
+    <div class="product-card">
+
+        <div class="product-img-wrapper">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-img">
+        </div>
+
+        <h3 class="product-name">{{ product.name }}</h3>
+        <p class="product-desc">{{ product.description }}</p>
+        <p class="product-price">¥ {{ product.price }}</p>
+
+        <form action="{% url 'add_to_cart' product.id %}" method="POST" class="product-form">
+            {% csrf_token %}
+
+            <!-- Size Selection -->
+            <label>Size:</label>
+            <select name="size" class="size-select">
+                <option value="S">S</option>
+                <option value="M" selected>M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+            </select>
+
+            <!-- Quantity -->
+            <label>Qty:</label>
+            <input type="number" name="quantity" value="1" min="1" class="qty">
+
+            <!-- Buttons -->
+            <div class="btn-container">
+                <button type="submit" class="add-cart">Add to Cart</button>
+            </div>
+
+        </form>
+
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

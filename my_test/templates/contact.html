@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="contact-section">
+
+    <div class="contact-container">
+
+        <div class="contact-info">
+
+            <h2>Get In Touch</h2>
+
+            <p><b>Email:</b> inra_ale11@gmail.com</p>
+            <p><b>Phone:</b> +81 123-456-789</p>
+            <p><b>Address:</b> Niigata, Japan</p>
+
+            <p><b>Or Send Us a Message:</b></p> 
+
+            {% if success %}
+            <p style="color:green;">Message Sent Successfully ✔</p>
+            {% endif %}
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" required></textarea>
+
+                <button type="submit" class="contact-btn">
+                    Send Message
+                </button>
+
+            </form>
+
+        </div>
+
+   <div class="contact-img">
+    <img src="https://images.unsplash.com/photo-1597045566677-8cf032ed6634">
+   </div>
+
+   </div>
+
+    </div>
+
+</section>
+{% endblock %}

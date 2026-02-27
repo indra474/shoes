@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="cart-container">
+
+    <h2 class="title">💳 Checkout</h2>
+
+    {% if items %}
+    <div class="cart-grid">
+
+        {% for item in items %}
+        <div class="cart-card">
+
+            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+
+            <h3>{{ item.product.name }}</h3>
+            <p>Size: {{ item.size }}</p>
+
+            <p class="cart-price">¥ {{ item.product.price }}</p>
+
+            <p>Quantity: {{ item.quantity }}</p>
+
+            <p><strong>Subtotal:</strong> ¥ {{ item.subtotal }}</p>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <!-- SUMMARY SECTION -->
+    <div class="checkout-summary">
+
+        <h3>Total Amount: ¥ {{ total }}</h3>
+
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="checkout-btn">
+                Confirm & Pay
+            </button>
+        </form>
+
+    </div>
+
+    {% else %}
+        <div class="empty-cart">
+            <h3>Your cart is empty 🛒</h3>
+        </div>
+    {% endif %}
+
+</div>
+
+
+<!-- ✅ POPUP OUTSIDE IF BLOCK (IMPORTANT) -->
+<div id="successPopup" class="popup-overlay">
+    <div class="popup-box">
+        <h2>🎉 Thank You!</h2>
+        <p>Thank you for shopping with us.<br>We will send you updates soon.</p>
+        <button onclick="redirectHome()">Continue</button>
+    </div>
+</div>
+
+
+<script>
+function redirectHome() {
+    window.location.href = "{% url 'home' %}";
+}
+
+{% if success %}
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("successPopup").classList.add("active");
+});
+{% endif %}
+</script>
+
+{% endblock %}

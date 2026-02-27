@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- ================= HERO ================= -->
+<div class="hero">
+    <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=1400&q=80">
+    <div class="hero-text">
+        <h1>Step Into Style</h1>
+        <p>Discover the Best Shoes Collection</p>
+    </div>
+</div>
+
+<h2 class="title">Our Latest Shoes</h2>
+
+<!-- ================= BRAND SECTION ================= -->
+<div class="brand-section">
+
+    <!-- NIKE -->
+    <a href="{% url 'products' %}" class="brand-box">
+        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80">
+        <h3>NIKE</h3>
+    </a>
+
+    <!-- ADIDAS -->
+    <a href="{% url 'products' %}" class="brand-box">
+        <img src="https://images.unsplash.com/photo-1518002171953-a080ee817e1f?auto=format&fit=crop&w=800&q=80">
+        <h3>ADIDAS</h3>
+    </a>
+
+    <!-- CONVERSE -->
+    <a href="{% url 'products' %}" class="brand-box">
+        <img src="https://images.unsplash.com/photo-1607522370275-f14206abe5d3?auto=format&fit=crop&w=800&q=80">
+        <h3>CONVERSE</h3>
+    </a>
+
+</div>
+
+<!-- ================= LATEST SHOES ================= -->
+<div class="card-container">
+    {% for card in cards %}
+    <div class="card">
+        <img src="{{ card.image }}">
+        <h3>{{ card.title }}</h3>
+        <p>{{ card.description }}</p>
+        <button>Buy Now</button>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

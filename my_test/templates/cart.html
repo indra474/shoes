@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="cart-wrapper">
+
+    <div class="cart-container">
+
+        <h2 class="cart-title">🛒 Your Shopping Cart</h2>
+
+        {% if items %}
+        <div class="cart-grid">
+
+            {% for item in items %}
+            <div class="cart-card">
+
+                <div class="cart-img-box">
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                </div>
+
+                <div class="cart-info">
+                    <h3>{{ item.product.name }}</h3>
+                    <p class="cart-size">Size: {{ item.size }}</p>
+
+                    <p class="cart-price">¥ {{ item.product.price }}</p>
+
+                    <div class="qty-section">
+                        <a href="{% url 'update_cart' item.key 'decrease' %}" class="qty-btn">−</a>
+                        <span class="qty-number">{{ item.quantity }}</span>
+                        <a href="{% url 'update_cart' item.key 'increase' %}" class="qty-btn">+</a>
+                    </div>
+
+                    <p class="subtotal">
+                        Subtotal: <strong>¥ {{ item.subtotal }}</strong>
+                    </p>
+
+                    <a href="{% url 'remove_from_cart' item.key %}" class="remove-btn">
+                        🗑 Remove
+                    </a>
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </div>
+
+        <!-- SUMMARY BOX -->
+        <div class="cart-summary">
+            <div class="summary-row">
+                <span>Total Amount:</span>
+                <span class="summary-total">¥ {{ total }}</span>
+            </div>
+
+            <a href="{% url 'checkout_all' %}" class="checkout-btn">
+                Proceed to Payment
+            </a>
+        </div>
+
+        {% else %}
+        <div class="empty-cart">
+            <h3>Your cart is empty 🛒</h3>
+            <a href="{% url 'product_list' %}" class="continue-btn">
+                Continue Shopping
+            </a>
+        </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}
